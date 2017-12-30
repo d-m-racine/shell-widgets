@@ -1,0 +1,29 @@
+#!/bin/bash
+# D. Racine 20130823
+
+PN="$(basename $0)"
+
+[ $# -ne 2 ] && { printf "
+  Archives a local directory or file to an encrypted tarball
+  in the specified destination directory.\n
+  Archive names have the form {src_basename}-{timestamp}.tar.xz.gpg\n
+  usage: backup src dest\n
+         src is the directory or file to be archived;
+         dest is an existing directory or [user@]host:[path]\n\n"; exit 1; }
+
+die() { echo "$PN: $1, quitting" >&2; exit 1; }
+
+TS=$(date '+%Y%m%d-%H%M')
+S="$(readlink -e "$1")" || die "$1 not found"
+C="$(dirname "$S")"
+T="$(basename "$S")"
+
+if [[ "$2" =~ ..*:.* ]]; then
+  H="$(cut -d: -f1 <<<"$2")"
+  P="$(cut -d: -f2 <<<"$2")"
+  RC="umask 077 && cat >\"${P:+$P/}$T-$TS.tar.xz.gpg\""
+  tar Jcf - -C "$C" "$T" |gpg -c |ssh -q "$H" "$RC"
+else
+  D="$(readlink -e "$2")" || die "destination directory '$2' not found"
+  [ -d "$D" ] || die "'$2' is neither a directory nor a [user@]host:[path]"
+  tar Jcf - -C "$C" "$T" |gpg -c >"$D/$T-$TS.tar.xz.gpg"; fi

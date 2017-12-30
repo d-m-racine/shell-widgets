@@ -1,0 +1,24 @@
+#!/bin/bash
+# Fixes "bad" filenames in the PWD. Caveat emptor.
+# D. Racine 20140321
+
+unset GLOBIGNORE
+shopt -s nullglob
+shopt -u failglob dotglob
+
+P='s|  *|_|g
+   s|[]<>(){}$"\x27\x60[]||g
+   s|[&+#:;,*\|\\]|-|g
+   s|_-_*|-|g
+   s|-_-*|_|g
+   s|___*|_|g
+   s|---*|-|g
+   s|^-||g'
+
+X=1
+for f in *; do
+  N="$(sed "$P" <<<"$f")"
+  [ "x$N" != "x$f" ] && {
+    printf 'mv -i -- %q %q\n' "$f" "$N"
+    mv -i -- "$f" "$N" && X=0; }; done
+exit $X

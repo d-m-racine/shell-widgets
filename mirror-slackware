@@ -1,0 +1,21 @@
+#!/bin/bash
+# D. Racine 20171203
+
+URL=rsync://slackware.cs.utah.edu/slackware/
+
+DEST="$HOME/OS"
+
+EXCLUDE=('extra/' 'pasture/' 'source/' 'testing/'
+         'patches/source/' 'patches/packages/kde*' 'slackware64/kde*/')
+
+[ $# -ne 1 ] && { printf "
+  Mirrors the specified Slackware64 version to $DEST/slackware64-{version}\n
+  Usage: $(basename $0) current|major.minor\n\n"; exit 1; }
+
+V=slackware64-$1
+TS=$(date '+%Y%m%d-%H%M')
+OPTS="-avz --delete --delete-excluded --log-file $DEST/mirrorlog-$V-$TS"
+
+[ -d "$DEST" ] || mkdir -p "$DEST" || exit 1
+
+rsync $OPTS ${EXCLUDE[@]/#/--exclude } "$URL$V" "$DEST"
