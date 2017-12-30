@@ -28,7 +28,7 @@ Serves the PWD with Python's SimpleHTTPServer.
 
 
 
-## This is License-free Software
+## This is License-Free Software
 
 The author of shell-widgets hereby waives all claim of copyright in this work and
 immediately places it in the public domain; it may be used, distorted, or destroyed
