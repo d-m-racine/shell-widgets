@@ -25,3 +25,11 @@ Renames "bad" filenames in the PWD.
 ### ws
 
 Serves the PWD with Python's SimpleHTTPServer.
+
+
+
+## This is License-free Software
+
+The author of shell-widgets hereby waives all claim of copyright in this work and
+immediately places it in the public domain; it may be used, distorted, or destroyed
+in any manner whatsoever without further attribution or notice to the creator.
