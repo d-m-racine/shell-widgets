@@ -1,10 +1,12 @@
 ## shell-widgets
+
+Miscellaneous tools for GNU-based systems
 D. Racine 20171229
 
 
 ### backup
 
-Compress and encrypt a local file or directory to a local or network path.
+Compress and encrypt a file or directory to a local or network path.
 
 
 ### mirror-slackware
@@ -25,7 +27,6 @@ Renames "bad" filenames in the PWD.
 ### ws
 
 Serves the PWD with Python's SimpleHTTPServer.
-
 
 
 ## This is License-Free Software
