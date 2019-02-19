@@ -1,11 +1,12 @@
 #!/bin/bash
 # D. Racine 20171203
 
-URL=rsync://slackware.cs.utah.edu/slackware/
+#URL=rsync://slackware.cs.utah.edu/slackware/
+URL=rsync://mirrors.kernel.org/slackware/
 
 DEST="$HOME/OS"
 
-EXCLUDE=('extra/' 'pasture/' 'source/' 'testing/'
+EXCLUDE=('extra/' 'pasture/' 'source/' 'testing/' 'isolinux/sbootmgr/'
          'patches/source/' 'patches/packages/kde*' 'slackware64/kde*/')
 
 [ $# -ne 1 ] && { printf "
