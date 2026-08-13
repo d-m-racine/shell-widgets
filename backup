@@ -21,9 +21,9 @@ T="$(basename "$S")"
 if [[ "$2" =~ ..*:.* ]]; then
   H="$(cut -d: -f1 <<<"$2")"
   P="$(cut -d: -f2 <<<"$2")"
-  RC="umask 077 && cat >\"${P:+$P/}$T-$TS.tar.xz.gpg\""
-  tar Jcf - -C "$C" "$T" |gpg -c |ssh -q "$H" "$RC"
+  RC="umask 077 && cat >\"${P:+$P/}$T-$TS.tar.gz.gpg\""
+  tar zcf - -C "$C" "$T" |gpg -c |ssh -q "$H" "$RC"
 else
   D="$(readlink -e "$2")" || die "destination directory '$2' not found"
   [ -d "$D" ] || die "'$2' is neither a directory nor a [user@]host:[path]"
-  tar Jcf - -C "$C" "$T" |gpg -c >"$D/$T-$TS.tar.xz.gpg"; fi
+  tar zcf - -C "$C" "$T" |gpg -c >"$D/$T-$TS.tar.gz.gpg"; fi
